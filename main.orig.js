@@ -22,21 +22,21 @@ program
 /* application specific stuff! yeah! */
 
 var replacements = {
-  '__PROJECT_NAME__': 'itude-mobile-ios-mobbl-custom-view-controller-sample',
-  '__BUNDLE_DISPLAY_NAME__': 'Custom View Controller Sample App',
-  '__BUNDLE_IDENTIFIER__': 'com.itude.mobile.mobbl.customviewcontrollersample',
+  '__PROJECT_NAME__': 'my-generated-project',
+  '__BUNDLE_DISPLAY_NAME__': 'My Generated App',
+  '__BUNDLE_IDENTIFIER__': 'my.generated.bundle.identifier',
   '__COMMENT_HEADING__': 'yeah comments!',
-  '__CLASS_PREFIX__': 'CVC',
-  '__MVN_ARTIFACT_ID__': 'itude-mobile-ios-mobbl-custom-view-controller-sample',
-  '__MVN_GROUP_IDENTIFIER__': 'com.itude.mobile.ios.mobbl',
-  '__MVN_PROJECT_DESCRIPTION__': 'This project demonstrates the use case of custom view controllers',
-  '__MVN_PROJECT_URL__': 'http://mobbl.org/',
-  '__MVN_INCEPTION_YEAR__ ': '2014',
-  '__ORGANIZATION_NAME__': 'Itude Mobile B.V.',
-  '__MVN_ORGANIZATION_URL__': 'http://www.itude.com/',
-  '__MVN_PRODUCT_LICENSE__': 'The Apache Software License, Version 2.0',
-  '__MVN_LICENSE_URL__': 'LICENSE',
-  '__MVN_DEVELOPER_NAME__': 'Sven Meyer'
+  '__CLASS_PREFIX__': 'MGP',
+  '__MVN_ARTIFACT_ID__': 'my-generated-project',
+  '__MVN_GROUP_IDENTIFIER__': 'my.maven.group.identifier',
+  '__MVN_PROJECT_DESCRIPTION__': 'My Maven Project Description',
+  '__MVN_PROJECT_URL__': 'http://my.project/url',
+  '__MVN_INCEPTION_YEAR__ ': '9999',
+  '__ORGANIZATION_NAME__': 'My Generated Organization',
+  '__MVN_ORGANIZATION_URL__': 'http://my.organization/url',
+  '__MVN_PRODUCT_LICENSE__': 'My Generated License',
+  '__MVN_LICENSE_URL__': 'http://my.license/url',
+  '__MVN_DEVELOPER_NAME__': 'My Developer Name'
 };
 
 var fs = require('fs');
@@ -55,7 +55,7 @@ var istextorbinary = require('istextorbinary');
 
 var templatePath;
 var stagePath; 
-var platforms = ['ios'/*, 'android'*/];
+var platforms = ['ios', 'android'];
 
 for (var platform in platforms) {
   templatePath = templatePathPerPlatform[platforms[platform]];
