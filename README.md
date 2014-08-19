@@ -26,3 +26,6 @@ Example run:
     prompt: Class prefix:  MOB
     
 This will create two project folders named `my-new-ios-project` and `my-new-android-project` in the directory `/path/to/folder/relative/path/to/other/folder`. It is also possible to enter an absolute path (in which case the current directory is not used). The directory has to exist.
+
+**NOTE:**  
+If you're having trouble inputting text because of a cursor jumping around your terminal: Make your terminal window wider, this will fix the problem. We're working on a better solution in the mean time.
