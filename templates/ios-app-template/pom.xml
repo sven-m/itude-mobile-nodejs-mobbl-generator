@@ -7,28 +7,6 @@
   <version>0.0.0.1-SNAPSHOT</version>
   <packaging>xcode-app</packaging>
   <name>__PROJECT_NAME__</name>
-  <description>__MVN_PROJECT_DESCRIPTION__</description>
-  <url>__MVN_PROJECT_URL__</url>
-  <inceptionYear>__MVN_INCEPTION_YEAR__</inceptionYear>
-  <organization>
-    <name>__ORGANIZATION_NAME__</name>
-    <url>__MVN_ORGANIZATION_URL__</url>
-  </organization>
-  <licenses>
-    <license>   
-      <name>__MVN_PRODUCT_LICENSE__</name>
-      <url>__MVN_LICENSE_URL__</url>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <name>__MVN_DEVELOPER_NAME__</name>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
 
   <dependencies>
     <dependency>
