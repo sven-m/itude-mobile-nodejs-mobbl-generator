@@ -2,69 +2,74 @@
 
 /* internal dependencies */
 var ProjectGenerator = require('./lib/projectgenerator');
+var userchoice = require('./lib/userchoice');
 
 /* external dependencies */
-var program = require('commander');
+//var program = require('commander');
+var prompt = require('prompt');
 
-program
-    .version('0.1')
-    .option('-p, --project-name <name>', 'The name of the iOS project')
-    .parse(process.argv);
+//program
+//.version('0.1')
+//.option('-p, --project-name <name>', 'The name of the iOS project')
+//.parse(process.argv);
 
-var iosPathTransforms = {
-  '__PROJECT_NAME__': 'my-generated-app-project',
-  '__CLASS_PREFIX__': 'GEN'
-};
+prompt.start();
 
-var androidPathTransforms = {
-  '__PROJECT_NAME__': 'my-generated-app-project',
-  '^src/': 'src/com/example/',
-};
+userchoice.getUserChoice(function(result) {
+  generateProject(result);
+});
 
+function generateProject(parameters) {
+  var templatePathPerPlatform = {
+    ios     : './templates/ios-app-template/',
+    android : './templates/android-app-template/'
+  };
 
-var textTransforms = {
-  '__PROJECT_NAME__': 'my-generated-app-project',
-  '__BUNDLE_DISPLAY_NAME__': 'My Generated App',
-  '__BUNDLE_IDENTIFIER__': 'com.example',
-  '__COMMENT_HEADING__': 'These comments were automatically generated!',
-  '__CLASS_PREFIX__': 'GEN',
-  '__MVN_ARTIFACT_ID__': 'my-generated-app-project',
-  '__MVN_GROUP_IDENTIFIER__': 'com.example',
-  '__MVN_PROJECT_DESCRIPTION__': 'This project demonstrates the use case of generated app projects',
-  '__MVN_PROJECT_URL__': 'http://example.com/',
-  '__MVN_INCEPTION_YEAR__ ': '2014',
-  '__ORGANIZATION_NAME__': 'My Generated Company Ltd.',
-  '__MVN_ORGANIZATION_URL__': 'http://www.example.com/',
-  '__MVN_PRODUCT_LICENSE__': 'The Generated Software License',
-  '__MVN_LICENSE_URL__': 'LICENSE',
-  '__MVN_DEVELOPER_NAME__': 'P. Generator'
-};
+  var targetPathPerPlatform = {
+    ios     : '/tmp/generated-ios-project/',
+    android : '/tmp/generated-android-project/'
+  }
 
-var templatePathPerPlatform = {
-  ios : './templates/ios-app-template/',
-  android : './templates/android-app-template/'
-};
+  if (parameters.platform.ios) {
+    var iosGenerator = new ProjectGenerator({
+      templateDirectory: templatePathPerPlatform.ios,
+      targetDirectory: targetPathPerPlatform.ios,
+      pathTransforms: {
+        '__PROJECT_NAME__': parameters.projectName,
+        '__CLASS_PREFIX__': parameters.classPrefix
+      },
+      textTransforms: {
+        '__PROJECT_NAME__': parameters.projectName,
+        '__BUNDLE_DISPLAY_NAME__': parameters.appName,
+        '__BUNDLE_IDENTIFIER__': parameters.packageName,
+        '__COMMENT_HEADING__': 'comment',
+        '__CLASS_PREFIX__': parameters.classPrefix,
+        '__MVN_ARTIFACT_ID__': parameters.projectName,
+        '__MVN_GROUP_IDENTIFIER__': parameters.packageName,
+      }
+    });
 
-var targetPathPerPlatform = {
-  ios : '/tmp/generated-ios-project/',
-  android : '/tmp/generated-android-project/'
+    iosGenerator.generate();
+  }
+
+  if (parameters.platform.android) {
+    var androidGenerator = new ProjectGenerator({
+      templateDirectory: templatePathPerPlatform.android,
+      targetDirectory: targetPathPerPlatform.android,
+      pathTransforms: {
+        '__PROJECT_NAME__': parameters.projectName,
+        '^src/' : 'src/' + parameters.packageName.replace(/\./g, '/') + '/'
+      },
+      textTransforms: {
+        '__PROJECT_NAME__': parameters.projectName,
+        '__BUNDLE_DISPLAY_NAME__': parameters.appName,
+        '__BUNDLE_IDENTIFIER__': parameters.packageName,
+        '__COMMENT_HEADING__': 'comment',
+        '__MVN_ARTIFACT_ID__': parameters.projectName,
+        '__MVN_GROUP_IDENTIFIER__': parameters.packageName,
+      }
+    });
+
+    androidGenerator.generate();
+  }
 }
-
-var iosGenerator = new ProjectGenerator({
-  templateDirectory: templatePathPerPlatform.ios,
-  targetDirectory: targetPathPerPlatform.ios,
-  pathTransforms: iosPathTransforms,
-  textTransforms: textTransforms
-});
-
-iosGenerator.generate();
-
-
-var androidGenerator = new ProjectGenerator({
-  templateDirectory: templatePathPerPlatform.android,
-  targetDirectory: targetPathPerPlatform.android,
-  pathTransforms: androidPathTransforms,
-  textTransforms: textTransforms
-});
-
-androidGenerator.generate();
