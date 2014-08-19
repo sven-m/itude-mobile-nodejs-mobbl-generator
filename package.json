@@ -1,0 +1,41 @@
+{
+  "name": "mobbl-generator",
+  "version": "0.0.1",
+  "description": "A project generator tool for MOBBL projects",
+  "keywords": ["mobbl", "generator", "project"],
+  "main": "main.js",
+  "bin": "bin/mobbl-generator",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ItudeMobile/itude-mobile-nodejs-mobbl-generator.git"
+  },
+  "keywords": [
+    "mobbl",
+    "generator"
+  ],
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib",
+    "main.js",
+    "package.json",
+    "templates"
+  ],
+  "dependencies" : {
+    {
+      "commander": "2.3.0",
+      "istextorbinary": "1.0.0",
+      "prompt": "0.2.13",
+      "replacestream": "0.1.3"
+  },
+  "author": "Sven Meyer <s.meyer@itude.com> (http://www.itude.com/)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ItudeMobile/itude-mobile-nodejs-mobbl-generator/issues"
+  },
+  "homepage": "https://github.com/ItudeMobile/itude-mobile-nodejs-mobbl-generator",
+  "preferGlobal": true
+}
