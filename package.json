@@ -1,6 +1,6 @@
 {
   "name": "mobbl-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A project generator tool for MOBBL projects",
   "keywords": [
     "mobbl",
