@@ -22,6 +22,7 @@ var userchoice = require('./lib/userchoice');
 /* external dependencies */
 //var program = require('commander');
 var prompt = require('prompt');
+var path = require('path');
 
 //program
 //.version('0.1')
@@ -36,30 +37,27 @@ userchoice.getUserChoice(function(result) {
 
 function generateProject(parameters) {
   var templatePathPerPlatform = {
-    ios     : './templates/ios-app-template/',
-    android : './templates/android-app-template/'
+    ios     : path.join(__dirname, 'templates/ios-app-template/'),
+    android : path.join(__dirname, 'templates/android-app-template/')
   };
 
-  var targetPathPerPlatform = {
-    ios     : '/tmp/generated-ios-project/',
-    android : '/tmp/generated-android-project/'
-  }
-
   if (parameters.platform.ios) {
+    var iosProjectName = parameters.projectName.replace('*', 'ios');
+
     var iosGenerator = new ProjectGenerator({
       templateDirectory: templatePathPerPlatform.ios,
-      targetDirectory: targetPathPerPlatform.ios,
+      targetDirectory: path.resolve(parameters.targetPath, iosProjectName),
       pathTransforms: {
-        '__PROJECT_NAME__': parameters.projectName,
+        '__PROJECT_NAME__': iosProjectName,
         '__CLASS_PREFIX__': parameters.classPrefix
       },
       textTransforms: {
-        '__PROJECT_NAME__': parameters.projectName,
+        '__PROJECT_NAME__': iosProjectName,
         '__BUNDLE_DISPLAY_NAME__': parameters.appName,
         '__BUNDLE_IDENTIFIER__': parameters.packageName,
         '__COMMENT_HEADING__': 'comment',
         '__CLASS_PREFIX__': parameters.classPrefix,
-        '__MVN_ARTIFACT_ID__': parameters.projectName,
+        '__MVN_ARTIFACT_ID__': iosProjectName,
         '__MVN_GROUP_IDENTIFIER__': parameters.packageName,
       }
     });
@@ -68,19 +66,21 @@ function generateProject(parameters) {
   }
 
   if (parameters.platform.android) {
+    var androidProjectName = parameters.projectName.replace('*', 'android');
+
     var androidGenerator = new ProjectGenerator({
       templateDirectory: templatePathPerPlatform.android,
-      targetDirectory: targetPathPerPlatform.android,
+      targetDirectory: path.resolve(parameters.targetPath, androidProjectName),
       pathTransforms: {
         '__PROJECT_NAME__': parameters.projectName,
         '^src/' : 'src/' + parameters.packageName.replace(/\./g, '/') + '/'
       },
       textTransforms: {
-        '__PROJECT_NAME__': parameters.projectName,
+        '__PROJECT_NAME__': androidProjectName,
         '__BUNDLE_DISPLAY_NAME__': parameters.appName,
         '__BUNDLE_IDENTIFIER__': parameters.packageName,
         '__COMMENT_HEADING__': 'comment',
-        '__MVN_ARTIFACT_ID__': parameters.projectName,
+        '__MVN_ARTIFACT_ID__': androidProjectName,
         '__MVN_GROUP_IDENTIFIER__': parameters.packageName,
       }
     });
