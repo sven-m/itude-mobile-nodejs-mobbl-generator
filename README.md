@@ -1,6 +1,6 @@
 mobbl-generator
 ===================================
-The MOBBL Project Generator is a NodeJS command line tool that enables the user to easily setup new MOBBL projects for iOS and Android.
+The MOBBL Project Generator is a NodeJS command line tool that enables the user to easily setup new iOS and Android projects that are built using [MOBBL](http://www.mobbl.org/).
 
 Installation:
 
